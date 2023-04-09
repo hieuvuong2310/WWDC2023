@@ -10,52 +10,109 @@ import SwiftUI
 struct IntroView: View {
     @ObservedObject private var viewModel: IntroViewModel = IntroViewModel()
     @State var text: String = ""
+    @State var introText: String = ""
     var body: some View {
         Color(.primaryAccent)
             .ignoresSafeArea()
             .overlay(
-                VStack {
-                    Rectangle()
-                        .frame(maxWidth: 430, maxHeight: 150)
-                        .foregroundColor(Color(.secondaryAccent))
-                        .overlay(alignment: .topLeading){
-                            HStack{
-                                
-                                Image("Avatar")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                Text(text).animation(.spring())
-//                                Text("Hi! Welcome to What to eat in Vietnam. Following this app will help you ")
-//                                    .bold()
-//                                    .multilineTextAlignment(.leading)
-//                                printMessage(message: "Hi! Welcome to What to eat in Vietnam. Following this app will help you")
-                            }
-                        
+                ZStack {
+                    Image("Background")
+                        .resizable()
+                        .opacity(0.5)
+                        .aspectRatio(contentMode: .fit)
+                    if (viewModel.continueOn) {
+                        Rectangle()
+                            .frame(maxWidth: 430, maxHeight: 200)
+                            .foregroundColor(Color(.secondaryAccent))
+                            .overlay(
+                                VStack (alignment: .trailing){
+                                    Rectangle()
+                                        .frame(maxWidth: 400, maxHeight: 150)
+                                        .foregroundColor(Color(.secondaryAccent))
+                                        .overlay(alignment: .topLeading){
+                                            HStack{
+                                                
+                                                Image("Avatar")
+                                                    .resizable()
+                                                    .aspectRatio(contentMode: .fit)
+                                                VStack {
+                                                    Text(text).animation(.easeIn)
+                                                }
+                                            }
+                                        }
+                                    Text("Continue")
+                                        .foregroundColor(Color(.primaryButton))
+                                        .font(.title2)
+                                        .padding([.bottom, .trailing], 20)
+                                        .onTapGesture {
+                                            viewModel.continueTapped()
+                                            let introText = viewModel.getIntro()
+                                            text = ""
+                                            introText.enumerated().forEach { index, character in
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
+                                                      text += String(character)
+                                                    }
+                                                  }
+                                        }
+                                        .foregroundColor(Color(.primaryAccent))
+                                }
+                            )
+                    }
+                    else {
+                        VStack{
+                            RoundedRectangle(cornerRadius: 20)
+                                .frame(maxWidth: 300, maxHeight: 100)
+                                .foregroundColor(Color(.primaryButton))
+                                .overlay(
+                                    Text("North")
+                                        .bold()
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.white)
+                                        .font(.title)
+                                )
+                                .onTapGesture {
+                                    viewModel.northTapped()
+                                }
+                            RoundedRectangle(cornerRadius: 20)
+                                .frame(maxWidth: 300, maxHeight: 100)
+                                .foregroundColor(Color(.primaryButton))
+                                .overlay(
+                                    Text("Middle")
+                                        .bold()
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.white)
+                                        .font(.title)
+                                )
+                                .onTapGesture {
+                                    viewModel.middleTapped()
+                                }
+                            RoundedRectangle(cornerRadius: 20)
+                                .frame(maxWidth: 300, maxHeight: 100)
+                                .foregroundColor(Color(.primaryButton))
+                                .overlay(
+                                    Text("South")
+                                        .bold()
+                                        .fontWeight(.heavy)
+                                        .foregroundColor(.white)
+                                        .font(.title)
+                                )
+                                .onTapGesture {
+                                    viewModel.southTapped()
+                                }
                         }
-                    
+                    }
                 }
             )
             .onAppear {
-                let introText = viewModel.getIntro(index: 0)
+                let introText = viewModel.getIntro()
                 text = ""
                 introText.enumerated().forEach { index, character in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.1) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
                           text += String(character)
                         }
                       }
             }
     }
-
-//    func printMessage(message: String?, delay: TimeInterval = 1) {
-//            let splits = message?.split(separator: " ", maxSplits: 1)
-//            print(splits?.first)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {[weak self] in
-//                guard splits?.count == 2 else {
-//                    return
-//                }
-//                self?.printMessage(message: String(splits?.last ?? ""))
-//            })
-//        }
 }
 
 struct IntroView_Previews: PreviewProvider {
