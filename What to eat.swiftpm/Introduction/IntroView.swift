@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct IntroView: View {
-    @ObservedObject private var viewModel: IntroViewModel = IntroViewModel()
+    @ObservedObject private var viewModel: IntroViewModel
+    init(viewModel: IntroViewModel) {
+        self.viewModel = viewModel
+    }
     @State var text: String = ""
     @State var introText: String = ""
     var body: some View {
@@ -35,6 +38,7 @@ struct IntroView: View {
                                                 Image("Avatar")
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fit)
+                                                    .padding(.top, 10)
                                                 VStack {
                                                     Text(text).animation(.easeIn)
                                                 }
@@ -117,6 +121,6 @@ struct IntroView: View {
 
 struct IntroView_Previews: PreviewProvider {
     static var previews: some View {
-        IntroView()
+        IntroView(viewModel: IntroViewModel(onNorth: {}, onMiddle: {}, onSouth: {}))
     }
 }

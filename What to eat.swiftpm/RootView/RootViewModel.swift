@@ -13,10 +13,13 @@ enum Destination: Identifiable {
             return ObjectIdentifier(viewModel)
         case .intro(let viewModel):
             return ObjectIdentifier(viewModel)
+        case .area(let viewModel):
+            return ObjectIdentifier(viewModel)
         }
     }
     case home(HomeViewModel)
     case intro(IntroViewModel)
+    case area(AreaViewModel)
 }
 @MainActor
 class RootViewModel: ObservableObject {
@@ -38,7 +41,10 @@ extension RootViewModel {
         .home(HomeViewModel(onStart: {}))
     }
     private static func makeIntroDestination() -> Destination {
-        .intro(IntroViewModel())
+        .intro(IntroViewModel(onNorth: {}, onMiddle: {}, onSouth: {}))
+    }
+    private static func makeAreaDestination(mode: AreaMode)-> Destination {
+        .area(AreaViewModel(mode: mode))
     }
 //    private static func makeListDestination(userId: String) -> Destination {
 //        .list(ToDoListViewModel(userId: userId))
@@ -51,9 +57,21 @@ extension RootViewModel {
                 guard let self else { return }
                 self.destination = Self.makeIntroDestination()
             }
-        case .intro(_):
+        case .intro(let viewModel):
+            viewModel.onNorth = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeAreaDestination(mode: .north)
+            }
+            viewModel.onMiddle = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeAreaDestination(mode: .middle)
+            }
+            viewModel.onSouth = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeAreaDestination(mode: .south)
+            }
+        case .area(_):
             break
-
         }
     }
 }
