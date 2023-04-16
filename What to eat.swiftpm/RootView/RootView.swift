@@ -6,8 +6,12 @@ struct RootView: View {
         switch viewModel.destination {
         case .home(let viewModel):
             HomeView(viewModel: viewModel)
-        case .intro(_):
-            IntroView()
+        case .intro(let viewModel):
+            IntroView(viewModel: viewModel)
+        case .area(let viewModel):
+            AreaView(viewModel: viewModel)
+        case .food(let viewModel):
+            FoodView(viewModel: viewModel)
         }
     }
 }

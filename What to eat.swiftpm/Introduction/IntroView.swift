@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct IntroView: View {
-    @ObservedObject private var viewModel: IntroViewModel = IntroViewModel()
-    @State var text: String = ""
+    @ObservedObject private var viewModel: IntroViewModel
+    init(viewModel: IntroViewModel) {
+        self.viewModel = viewModel
+    }
+    @State var greetingText: String = ""
     @State var introText: String = ""
     var body: some View {
         Color(.primaryAccent)
@@ -35,8 +38,9 @@ struct IntroView: View {
                                                 Image("Avatar")
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fit)
+                                                    .padding(.top, 10)
                                                 VStack {
-                                                    Text(text).animation(.easeIn)
+                                                    Text(greetingText).animation(.easeIn)
                                                 }
                                             }
                                         }
@@ -47,10 +51,10 @@ struct IntroView: View {
                                         .onTapGesture {
                                             viewModel.continueTapped()
                                             let introText = viewModel.getIntro()
-                                            text = ""
+                                            greetingText = ""
                                             introText.enumerated().forEach { index, character in
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                                                      text += String(character)
+                                                        greetingText += String(character)
                                                     }
                                                   }
                                         }
@@ -105,10 +109,10 @@ struct IntroView: View {
             )
             .onAppear {
                 let introText = viewModel.getIntro()
-                text = ""
+                greetingText = ""
                 introText.enumerated().forEach { index, character in
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                          text += String(character)
+                            greetingText += String(character)
                         }
                       }
             }
@@ -117,6 +121,6 @@ struct IntroView: View {
 
 struct IntroView_Previews: PreviewProvider {
     static var previews: some View {
-        IntroView()
+        IntroView(viewModel: IntroViewModel(onNorth: {}, onMiddle: {}, onSouth: {}))
     }
 }
