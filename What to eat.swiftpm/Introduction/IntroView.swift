@@ -12,7 +12,7 @@ struct IntroView: View {
     init(viewModel: IntroViewModel) {
         self.viewModel = viewModel
     }
-    @State var text: String = ""
+    @State var greetingText: String = ""
     @State var introText: String = ""
     var body: some View {
         Color(.primaryAccent)
@@ -40,7 +40,7 @@ struct IntroView: View {
                                                     .aspectRatio(contentMode: .fit)
                                                     .padding(.top, 10)
                                                 VStack {
-                                                    Text(text).animation(.easeIn)
+                                                    Text(greetingText).animation(.easeIn)
                                                 }
                                             }
                                         }
@@ -51,10 +51,10 @@ struct IntroView: View {
                                         .onTapGesture {
                                             viewModel.continueTapped()
                                             let introText = viewModel.getIntro()
-                                            text = ""
+                                            greetingText = ""
                                             introText.enumerated().forEach { index, character in
                                                     DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                                                      text += String(character)
+                                                        greetingText += String(character)
                                                     }
                                                   }
                                         }
@@ -109,10 +109,10 @@ struct IntroView: View {
             )
             .onAppear {
                 let introText = viewModel.getIntro()
-                text = ""
+                greetingText = ""
                 introText.enumerated().forEach { index, character in
                         DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                          text += String(character)
+                            greetingText += String(character)
                         }
                       }
             }

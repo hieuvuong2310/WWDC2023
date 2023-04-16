@@ -31,7 +31,7 @@ class IntroViewModel: ObservableObject {
         self.intro = intro
     }
     convenience init(onNorth: (() -> Void)?, onMiddle: (() -> Void)?, onSouth: (() -> Void)?) {
-        self.init(onNorth: onNorth, onMiddle: onMiddle, onSouth: onSouth, intro: ["Hi! Welcome to What to eat in Vietnam. Following this app will guide you through cuisines across Vietnam", "hdskjfhkjs", "sdkskfhkhfks"])
+        self.init(onNorth: onNorth, onMiddle: onMiddle, onSouth: onSouth, intro: ["Hi! Welcome to What to eat in Vietnam. Following this app will guide you through cuisines across Vietnam", "You can expect to gain more information about food in different regions in Vietnam.", "Now, let's start our journey."])
     }
     
     func getIntro() -> String{

@@ -10,6 +10,8 @@ struct RootView: View {
             IntroView(viewModel: viewModel)
         case .area(let viewModel):
             AreaView(viewModel: viewModel)
+        case .food(let viewModel):
+            FoodView(viewModel: viewModel)
         }
     }
 }

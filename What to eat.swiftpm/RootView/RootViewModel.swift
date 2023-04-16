@@ -15,11 +15,14 @@ enum Destination: Identifiable {
             return ObjectIdentifier(viewModel)
         case .area(let viewModel):
             return ObjectIdentifier(viewModel)
+        case .food(let viewModel):
+            return ObjectIdentifier(viewModel)
         }
     }
     case home(HomeViewModel)
     case intro(IntroViewModel)
     case area(AreaViewModel)
+    case food(FoodViewModel)
 }
 @MainActor
 class RootViewModel: ObservableObject {
@@ -43,12 +46,12 @@ extension RootViewModel {
     private static func makeIntroDestination() -> Destination {
         .intro(IntroViewModel(onNorth: {}, onMiddle: {}, onSouth: {}))
     }
-    private static func makeAreaDestination(mode: AreaMode)-> Destination {
-        .area(AreaViewModel(mode: mode))
+    private static func makeAreaDestination(mode: AreaMode, onContinue: ((AreaMode) -> Void)? = nil)-> Destination {
+        .area(AreaViewModel(mode: mode, onContinue: onContinue))
     }
-//    private static func makeListDestination(userId: String) -> Destination {
-//        .list(ToDoListViewModel(userId: userId))
-//    }
+    private static func makeFoodDestination(mode: AreaMode)-> Destination {
+        .food(FoodViewModel(mode: mode))
+    }
     
     private func bind() {
         switch destination {
@@ -65,12 +68,19 @@ extension RootViewModel {
             viewModel.onMiddle = { [weak self] in
                 guard let self else { return }
                 self.destination = Self.makeAreaDestination(mode: .middle)
+
             }
             viewModel.onSouth = { [weak self] in
                 guard let self else { return }
                 self.destination = Self.makeAreaDestination(mode: .south)
+
             }
-        case .area(_):
+        case .area(let viewModel):
+            viewModel.onContinue = { [weak self] mode in
+                guard let self else { return }
+                self.destination = Self.makeFoodDestination(mode: mode)
+            }
+        case .food(_):
             break
         }
     }

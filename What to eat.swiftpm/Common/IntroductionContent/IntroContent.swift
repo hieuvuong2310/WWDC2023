@@ -37,9 +37,9 @@ protocol CuisineFind {
 final class CuisineFindImpl: CuisineFind {
     private var content: Area =
         .init(
-            north: .init(cuisines: [.init(id: UUID(), name: "Pho", ingredients: ["beef", "broth", "rice noodle", "bean sprout", "hoisin"], foodDescription: "Signature in Vietnam")], animation: [.init(id: UUID(), placeName: "Hanoi", placeDescription: "A signature place in Hanoi")], description: ["Hi"]),
-            middle: .init(cuisines: [.init(id: UUID(), name: "Spicy beef noodle/Bun bo", ingredients: ["beef", "broth", "rice vermicelli", "bean sprout", "chili oil"], foodDescription: "Signature in Vietnam")], animation: [.init(id: UUID(), placeName: "Hue", placeDescription: "A signature place in Hanoi")], description: ["Hi"]),
-            south: .init(cuisines: [.init(id: UUID(), name: "Grilled pork chop with broken rice/Com tam", ingredients: ["rice", "pork", "fish sauce", "oil onion"], foodDescription: "Signature in Saigon")], animation: [.init(id: UUID(), placeName: "Saigon", placeDescription: "A signature place in Saigon")], description: ["Hi"]))
+            north: .init(cuisines: [.init(id: UUID(), name: "Pho", ingredients: ["beef", "broth", "rice noodle", "bean sprout", "hoisin"], foodDescription: "Signature in Vietnam")], animation: [.init(id: UUID(), placeName: "Hanoi", placeDescription: "A signature place in Hanoi")], description: ["Dialog1", "Dialog2", "Dialog3"]),
+            middle: .init(cuisines: [.init(id: UUID(), name: "Spicy beef noodle/Bun bo", ingredients: ["beef", "broth", "rice vermicelli", "bean sprout", "chili oil"], foodDescription: "Signature in Vietnam")], animation: [.init(id: UUID(), placeName: "Hue", placeDescription: "A signature place in Hue")], description: ["Dialog4", "Dialog5", "Dialog6"]),
+            south: .init(cuisines: [.init(id: UUID(), name: "Grilled pork chop with broken rice/Com tam", ingredients: ["rice", "pork", "fish sauce", "oil onion"], foodDescription: "Signature in Saigon")], animation: [.init(id: UUID(), placeName: "Saigon", placeDescription: "A signature place in Saigon")], description: ["Dialog7", "Dialog8", "Dialog9"]))
     func getNorth() -> AreaElements{
         return (content.north)
     }
