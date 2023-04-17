@@ -9,21 +9,12 @@ import Foundation
 
 @MainActor
 class FoodViewModel: ObservableObject{
-    private var mode: AreaMode
-    private var foodText: String
-    init(mode: AreaMode){
-        self.mode = mode
-        switch mode {
-        case .north:
-            foodText = "north"
-        case .middle:
-            foodText = "middle"
-        case .south:
-            foodText = "south"
-        }
+    private var cuisines: [Cuisine]
+    init(cuisines: [Cuisine]){
+        self.cuisines = cuisines
     }
     
-    func getText() -> String {
-        return self.foodText
+    func getListOfCuisine() -> [Cuisine] {
+        return cuisines
     }
 }
