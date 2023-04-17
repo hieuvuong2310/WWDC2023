@@ -49,8 +49,8 @@ extension RootViewModel {
     private static func makeAreaDestination(mode: AreaMode, onContinue: (([Cuisine]) -> Void)? = nil)-> Destination {
         .area(AreaViewModel(mode: mode, onContinue: onContinue))
     }
-    private static func makeFoodDestination(cuisines: [Cuisine])-> Destination {
-        .food(FoodViewModel(cuisines: cuisines))
+    private static func makeFoodDestination(cuisines: [Cuisine], onDone: (() -> Void)? = nil)-> Destination {
+        .food(FoodViewModel(cuisines: cuisines, onDone: onDone))
     }
     
     private func bind() {
@@ -80,8 +80,11 @@ extension RootViewModel {
                 guard let self else { return }
                 self.destination = Self.makeFoodDestination(cuisines: cuisines)
             }
-        case .food(_):
-            break
+        case .food(let viewModel):
+            viewModel.onDone = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeIntroDestination()
+            }
         }
     }
 }
