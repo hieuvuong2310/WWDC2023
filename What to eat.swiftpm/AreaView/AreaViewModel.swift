@@ -16,12 +16,13 @@ class AreaViewModel: ObservableObject {
     private var mode: AreaMode
     private var cuisineFind: CuisineFindImpl = CuisineFindImpl()
     private var content: AreaElements
+    private var cuisines: [Cuisine]
     private var region: String
     private var count: Int = 0
     private var nextDes: Bool = true
     private let flightImage: String = "Flight"
-    var onContinue: (AreaMode) -> Void = { _ in fatalError("AreaViewModel.onContinue was invoked before being initialized") }
-    init(mode: AreaMode, onContinue: ((AreaMode) -> Void)?){
+    var onContinue: ([Cuisine]) -> Void = { _ in fatalError("AreaViewModel.onContinue was invoked before being initialized") }
+    init(mode: AreaMode, onContinue: (([Cuisine]) -> Void)?){
         self.mode = mode
         if let onContinue {
             self.onContinue = onContinue
@@ -37,6 +38,7 @@ class AreaViewModel: ObservableObject {
             content = cuisineFind.getSouth()
             region = "South"
         }
+        cuisines = content.cuisines
     }
     func getFlightImage() -> String {
         return self.flightImage
@@ -69,6 +71,6 @@ class AreaViewModel: ObservableObject {
     }
     
     func goToCuisinePage() {
-        onContinue(mode)
+        onContinue(cuisines)
     }
 }

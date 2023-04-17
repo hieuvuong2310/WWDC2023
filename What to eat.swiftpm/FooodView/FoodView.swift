@@ -18,43 +18,71 @@ struct FoodView: View {
         Color(.primaryAccent)
             .ignoresSafeArea()
             .overlay(
-                VStack{
-                    Text(viewModel.getText())
-                    GeometryReader { geo in
-                        HStack(spacing: -1) {
-                            Image("Flight")
-                                .aspectRatio(contentMode: .fit)
-                            
-                            Image("Avatar")
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: geo.size.width, alignment: .leading)
-                                .onTapGesture {
-                                    print("Hi")
-                                }
-                            Image("Character")
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: geo.size.width, alignment: .leading)
-                                .onTapGesture {
-                                    print("Hi")
-                                }
-                            
+                VStack {
+                    Text("Signature dishes in your region")
+                        .bold()
+                        .font(.largeTitle)
+                        .foregroundColor(Color(.titleText))
+                        .multilineTextAlignment(.center)
+                    Spacer()
+                        .frame(height: 50)
+                    Text("Please scroll horizontally to view the list of options.")
+                        .font(.body)
+                        .bold()
+                        .foregroundColor(Color(.secondaryText))
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 5) {
+                            ForEach(viewModel.getListOfCuisine()) { cuisine in
+                                FoodCell(cuisine: cuisine)
+                                
+                            }
                         }
-                        .frame(width: geo.size.width, height: geo.size.height,
-                               alignment: animate ? .trailing : .leading)
-                    }
-                    .ignoresSafeArea()
-                    .onAppear {
-                        withAnimation(animation) {
-                            animate.toggle()
-                        }
-                    }
+                    }.font(.largeTitle)
+                    Image("Walking")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(.trailing, -150)
                 }
         )
     }
 }
-
+struct FoodCell: View {
+    var cuisine: Cuisine
+    init(cuisine: Cuisine) {
+        self.cuisine = cuisine
+    }
+    var body: some View {
+        RoundedRectangle(cornerRadius: 30)
+            .frame(width: 350, height: 500)
+            .foregroundColor(.white)
+            .overlay {
+                VStack(spacing: 30) {
+                    RoundedRectangle(cornerRadius: 30)
+                        .frame(width: 300, height: 300)
+                        .foregroundColor(.white)
+                        .overlay {
+                            VStack(spacing: 20){
+                                Image(cuisine.foodPicture)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .padding(.top, 10)
+                                Text(cuisine.name)
+                                    .bold()
+                                    .font(.largeTitle)
+                                    .foregroundColor(Color(.titleText))
+                            }
+                        }
+                    Text(cuisine.ingredients)
+                        .font(.body)
+                        .multilineTextAlignment(.center)
+                }
+            }
+            .padding([.leading, .trailing], 20)
+        
+    }
+}
 struct FoodView_Previews: PreviewProvider {
     static var previews: some View {
-        FoodView(viewModel: FoodViewModel(mode: .north))
+        FoodView(viewModel: FoodViewModel(cuisines: [.init(id: UUID(), name: "Pho", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(history: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food1"), .init(id: UUID(), name: "Shirm paste with noodle", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(history: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food2"), .init(id: UUID(), name: "Grill porkloaf with vermicelli", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(history: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food3")]))
     }
 }
