@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  AreaView.swift
 //  
 //
 //  Created by Hieu Vuong on 2023-04-09.
@@ -26,6 +26,9 @@ struct AreaView: View {
                     ZStack{
                         ForEach(viewModel.getImages()) { image in
                             VStack{
+                                Text(image.placeDescription)
+                                    .font(.body)
+                                    .bold()
                                 Image(image.placeName)
                                     .frame(maxWidth: 230)
                                 Spacer()
@@ -75,6 +78,7 @@ struct AreaView: View {
                             .onTapGesture {
                                 viewModel.goToCuisinePage()
                             }
+                        
                     }
                 }
         )
