@@ -39,6 +39,7 @@ struct HomeView: View {
                         viewModel.onStartClicked()
                     }
                     .foregroundColor(.white)
+                    .font(.title)
                     .buttonStyle(.bordered)
                     .frame(maxWidth: 343, maxHeight: 56)
                     .background(Color(.primaryButton))

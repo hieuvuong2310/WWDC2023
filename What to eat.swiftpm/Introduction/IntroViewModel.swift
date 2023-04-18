@@ -15,23 +15,15 @@ class IntroViewModel: ObservableObject {
     @Published private(set) var loading: Bool = false
     private var count: Int = 0
     @Published var continueOn: Bool = true
-    var onNorth: () -> Void = { fatalError("IntroViewModel.onNorth was invoked before being initialized") }
-    var onMiddle: () -> Void = { fatalError("IntroViewModel.onMiddle was invoked before being initialized") }
-    var onSouth: () -> Void = { fatalError("IntroViewModel.onSouth was invoked before being initialized") }
-    init(onNorth: (() -> Void)?, onMiddle: (() -> Void)?, onSouth: (() -> Void)?, intro: [String]){
-        if let onNorth {
-            self.onNorth = onNorth
-        }
-        if let onMiddle {
-            self.onMiddle = onMiddle
-        }
-        if let onSouth {
-            self.onSouth = onSouth
+    var onContinue: () -> Void = { fatalError("AreaViewModel.onContinue was invoked before being initialized") }
+    init(intro: [String], onContinue: (() -> Void)?){
+        if let onContinue {
+            self.onContinue = onContinue
         }
         self.intro = intro
     }
-    convenience init(onNorth: (() -> Void)?, onMiddle: (() -> Void)?, onSouth: (() -> Void)?) {
-        self.init(onNorth: onNorth, onMiddle: onMiddle, onSouth: onSouth, intro: ["Hi! Welcome to What to eat in Vietnam. Following this app will guide you through cuisines across Vietnam", "You can expect to gain more information about food in different regions in Vietnam.", "Now, let's start our journey."])
+    convenience init(onContinue: (()->Void)?) {
+        self.init(intro: ["Hi! Welcome to What to eat in Vietnam. Following this app will guide you through cuisines across Vietnam", "You can expect to gain more information about food in different regions in Vietnam.", "Now, let's start our journey."], onContinue: onContinue)
     }
     
     func getIntro() -> String{
@@ -49,14 +41,8 @@ class IntroViewModel: ObservableObject {
             count += 1
         }
     }
+    func moveNext() {
+        onContinue()
+    }
     
-    func northTapped() {
-        onNorth()
-    }
-    func middleTapped() {
-        onMiddle()
-    }
-    func southTapped() {
-        onSouth()
-    }
 }

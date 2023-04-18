@@ -24,6 +24,7 @@ struct FoodView: View {
                         .font(.largeTitle)
                         .foregroundColor(Color(.titleText))
                         .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.1)
                     Spacer()
                         .frame(height: 50)
                     Text("Please scroll horizontally to view the list of options.")
@@ -34,16 +35,43 @@ struct FoodView: View {
                         HStack(spacing: 5) {
                             ForEach(viewModel.getListOfCuisine()) { cuisine in
                                 FoodCell(cuisine: cuisine)
+                                    .onTapGesture {
+                                        viewModel.onFoodCardTaped(cuisine: cuisine)
+                                    }
                                 
                             }
                         }
                     }.font(.largeTitle)
-                    Image("Walking")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding(.trailing, -150)
+                    HStack {
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color(.primaryButton))
+                            .frame(maxWidth: 150, maxHeight: 70)
+                            .overlay(
+                                Text("Done")
+                                    .bold()
+                                    .font(.title)
+                                    .foregroundColor(.white)
+                            )
+                            .onTapGesture {
+                                viewModel.onDoneTapped()
+                            }
+                        Image("Walking")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    }
+                    
                 }
         )
+            .sheet(item: Binding(
+                get: { viewModel.destination },
+                set: { _ in viewModel.resetDestination()}
+            )
+            ) { destination in
+                switch destination {
+                case .open(let viewModel):
+                    DetailedFoodView(viewModel: viewModel)
+                }
+            }
     }
 }
 struct FoodCell: View {
@@ -58,7 +86,7 @@ struct FoodCell: View {
             .overlay {
                 VStack(spacing: 30) {
                     RoundedRectangle(cornerRadius: 30)
-                        .frame(width: 300, height: 300)
+                        .frame(maxWidth: 300, maxHeight: 300)
                         .foregroundColor(.white)
                         .overlay {
                             VStack(spacing: 20){
@@ -83,6 +111,6 @@ struct FoodCell: View {
 }
 struct FoodView_Previews: PreviewProvider {
     static var previews: some View {
-        FoodView(viewModel: FoodViewModel(cuisines: [.init(id: UUID(), name: "Pho", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(history: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food1"), .init(id: UUID(), name: "Shirm paste with noodle", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(history: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food2"), .init(id: UUID(), name: "Grill porkloaf with vermicelli", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(history: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food3")]))
+        FoodView(viewModel: FoodViewModel(cuisines: [.init(id: UUID(), name: "Pho", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(location: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food1"), .init(id: UUID(), name: "Shirm paste with noodle", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(location: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food2"), .init(id: UUID(), name: "Grill porkloaf with vermicelli", ingredients: "beef, broth, rice noodle, bean sprout, hoisin sauce", foodDescription: .init(location: "This was created in 1980s", descriptionText: "A signature dish of Vietnam"), foodPicture: "Food3")], onDone: {}))
     }
 }
