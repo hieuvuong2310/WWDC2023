@@ -24,6 +24,7 @@ struct FoodView: View {
                         .font(.largeTitle)
                         .foregroundColor(Color(.titleText))
                         .multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.1)
                     Spacer()
                         .frame(height: 50)
                     Text("Please scroll horizontally to view the list of options.")
@@ -85,7 +86,7 @@ struct FoodCell: View {
             .overlay {
                 VStack(spacing: 30) {
                     RoundedRectangle(cornerRadius: 30)
-                        .frame(width: 300, height: 300)
+                        .frame(maxWidth: 300, maxHeight: 300)
                         .foregroundColor(.white)
                         .overlay {
                             VStack(spacing: 20){

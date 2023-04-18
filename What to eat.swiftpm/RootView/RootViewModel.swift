@@ -13,6 +13,8 @@ enum Destination: Identifiable {
             return ObjectIdentifier(viewModel)
         case .intro(let viewModel):
             return ObjectIdentifier(viewModel)
+        case .region(let viewModel):
+            return ObjectIdentifier(viewModel)
         case .area(let viewModel):
             return ObjectIdentifier(viewModel)
         case .food(let viewModel):
@@ -21,6 +23,7 @@ enum Destination: Identifiable {
     }
     case home(HomeViewModel)
     case intro(IntroViewModel)
+    case region(ChooseRegionViewModel)
     case area(AreaViewModel)
     case food(FoodViewModel)
 }
@@ -44,7 +47,10 @@ extension RootViewModel {
         .home(HomeViewModel(onStart: {}))
     }
     private static func makeIntroDestination() -> Destination {
-        .intro(IntroViewModel(onNorth: {}, onMiddle: {}, onSouth: {}))
+        .intro(IntroViewModel(onContinue: {}))
+    }
+    private static func makeRegionDestination() -> Destination {
+        .region(ChooseRegionViewModel(onNorth: {}, onMiddle: {}, onSouth: {}))
     }
     private static func makeAreaDestination(mode: AreaMode, onContinue: (([Cuisine]) -> Void)? = nil)-> Destination {
         .area(AreaViewModel(mode: mode, onContinue: onContinue))
@@ -61,6 +67,11 @@ extension RootViewModel {
                 self.destination = Self.makeIntroDestination()
             }
         case .intro(let viewModel):
+            viewModel.onContinue = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeRegionDestination()
+            }
+        case .region(let viewModel):
             viewModel.onNorth = { [weak self] in
                 guard let self else { return }
                 self.destination = Self.makeAreaDestination(mode: .north)
@@ -83,7 +94,7 @@ extension RootViewModel {
         case .food(let viewModel):
             viewModel.onDone = { [weak self] in
                 guard let self else { return }
-                self.destination = Self.makeIntroDestination()
+                self.destination = Self.makeRegionDestination()
             }
         }
     }

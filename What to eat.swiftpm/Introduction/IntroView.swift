@@ -12,7 +12,6 @@ struct IntroView: View {
     init(viewModel: IntroViewModel) {
         self.viewModel = viewModel
     }
-    @State var greetingText: String = ""
     @State var introText: String = ""
     var body: some View {
         Color(.primaryAccent)
@@ -40,7 +39,7 @@ struct IntroView: View {
                                                     .aspectRatio(contentMode: .fit)
                                                     .padding(.top, 10)
                                                 VStack {
-                                                    Text(greetingText).animation(.easeIn)
+                                                    Text(introText)
                                                 }
                                             }
                                         }
@@ -50,77 +49,36 @@ struct IntroView: View {
                                         .padding([.bottom, .trailing], 20)
                                         .onTapGesture {
                                             viewModel.continueTapped()
-                                            let introText = viewModel.getIntro()
-                                            greetingText = ""
-                                            introText.enumerated().forEach { index, character in
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                                                        greetingText += String(character)
-                                                    }
-                                                  }
+                                            introText = viewModel.getIntro()
                                         }
                                         .foregroundColor(Color(.primaryAccent))
                                 }
                             )
                     }
                     else {
-                        VStack{
-                            RoundedRectangle(cornerRadius: 20)
-                                .frame(maxWidth: 300, maxHeight: 100)
-                                .foregroundColor(Color(.primaryButton))
-                                .overlay(
-                                    Text("North")
-                                        .bold()
-                                        .fontWeight(.heavy)
-                                        .foregroundColor(.white)
-                                        .font(.title)
-                                )
-                                .onTapGesture {
-                                    viewModel.northTapped()
-                                }
-                            RoundedRectangle(cornerRadius: 20)
-                                .frame(maxWidth: 300, maxHeight: 100)
-                                .foregroundColor(Color(.primaryButton))
-                                .overlay(
-                                    Text("Middle")
-                                        .bold()
-                                        .fontWeight(.heavy)
-                                        .foregroundColor(.white)
-                                        .font(.title)
-                                )
-                                .onTapGesture {
-                                    viewModel.middleTapped()
-                                }
-                            RoundedRectangle(cornerRadius: 20)
-                                .frame(maxWidth: 300, maxHeight: 100)
-                                .foregroundColor(Color(.primaryButton))
-                                .overlay(
-                                    Text("South")
-                                        .bold()
-                                        .fontWeight(.heavy)
-                                        .foregroundColor(.white)
-                                        .font(.title)
-                                )
-                                .onTapGesture {
-                                    viewModel.southTapped()
-                                }
-                        }
+                        RoundedRectangle(cornerRadius: 30)
+                            .frame(width: 400, height: 60)
+                            .foregroundColor(Color(.primaryButton))
+                            .overlay(
+                                Text("Next")
+                                    .foregroundColor(.white)
+                                    .bold()
+                                    .font(.title)
+                            )
+                            .onTapGesture {
+                                viewModel.moveNext()
+                            }
                     }
                 }
             )
             .onAppear {
-                let introText = viewModel.getIntro()
-                greetingText = ""
-                introText.enumerated().forEach { index, character in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.05) {
-                            greetingText += String(character)
-                        }
-                      }
+                introText = viewModel.getIntro()
             }
     }
 }
 
 struct IntroView_Previews: PreviewProvider {
     static var previews: some View {
-        IntroView(viewModel: IntroViewModel(onNorth: {}, onMiddle: {}, onSouth: {}))
+        IntroView(viewModel: IntroViewModel(onContinue: {}))
     }
 }

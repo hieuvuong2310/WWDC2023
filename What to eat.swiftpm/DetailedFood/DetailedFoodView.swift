@@ -18,7 +18,7 @@ struct DetailedFoodView: View {
                 .ignoresSafeArea()
                 .overlay(
                     ScrollView(.vertical){
-                        VStack(alignment: .leading) {
+                        VStack {
                             Text(viewModel.getFoodName())
                                 .font(.largeTitle)
                                 .bold()
@@ -38,42 +38,49 @@ struct DetailedFoodView: View {
                                                 .padding(.top, 10)
                                         }
                                 )
-                            Text("Ingredients")
-                                .font(.title)
-                                .foregroundColor(Color(.secondaryText))
-                                .bold()
-                            Text(viewModel.getFoodIngredients())
-                                .font(.body)
-                            Spacer()
-                                .frame(height: 30)
-                            Text("Origin")
-                                .font(.title)
-                                .foregroundColor(Color(.secondaryText))
-                                .bold()
-                            Text(viewModel.getFoodLocations())
-                                .font(.body)
-                            Spacer()
-                                .frame(height: 30)
-                            Text("Description")
-                                .font(.title)
-                                .foregroundColor(Color(.secondaryText))
-                                .bold()
-                            Text(viewModel.getFoodDescription())
-                                .font(.body)
+                            VStack{
+                                Text("Ingredients")
+                                    .font(.title)
+                                    .foregroundColor(Color(.secondaryText))
+                                    .bold()
+                                Text(viewModel.getFoodIngredients())
+                                    .font(.body)
+                                Spacer()
+                                    .frame(height: 30)
+                                Text("Origin")
+                                    .font(.title)
+                                    .foregroundColor(Color(.secondaryText))
+                                    .bold()
+                                Text(viewModel.getFoodLocations())
+                                    .font(.body)
+                                Spacer()
+                                    .frame(height: 30)
+                                Text("Description")
+                                    .font(.title)
+                                    .foregroundColor(Color(.secondaryText))
+                                    .bold()
+                                Text(viewModel.getFoodDescription())
+                                    .font(.body)
+                                Spacer()
+                                    .frame(height: 30)
+                                RoundedRectangle(cornerRadius: 30)
+                                    .frame(width: 350, height: 60)
+                                    .foregroundColor(Color(.primaryButton))
+                                    .overlay(
+                                        Text("Done")
+                                            .foregroundColor(.white)
+                                            .bold()
+                                            .font(.title)
+                                    )
+                                    .onTapGesture {
+                                        viewModel.onDismissButtonTapped()
+                                    }
+                            }
+                            .padding([.leading, .trailing], 30)
                         }
                         .padding([.leading, .trailing], 30)
                     }
-                    
                 )
-        }
-        .toolbar{
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Text("Dismiss")
-                    .onTapGesture{
-                        viewModel.onDismissButtonTapped()
-                    }
-                    .foregroundColor(Color(.titleText))
-            }
         }
     }
 }
