@@ -15,7 +15,7 @@ class IntroViewModel: ObservableObject {
     @Published private(set) var loading: Bool = false
     private var count: Int = 0
     @Published var continueOn: Bool = true
-    var onContinue: () -> Void = { fatalError("AreaViewModel.onContinue was invoked before being initialized") }
+    var onContinue: () -> Void = { fatalError("IntroViewModel.onContinue was invoked before being initialized") }
     init(intro: [String], onContinue: (() -> Void)?){
         if let onContinue {
             self.onContinue = onContinue

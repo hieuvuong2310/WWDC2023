@@ -9,9 +9,9 @@ import Foundation
 
 @MainActor
 class ChooseRegionViewModel: ObservableObject {
-    var onNorth: () -> Void = { fatalError("IntroViewModel.onNorth was invoked before being initialized") }
-    var onMiddle: () -> Void = { fatalError("IntroViewModel.onMiddle was invoked before being initialized") }
-    var onSouth: () -> Void = { fatalError("IntroViewModel.onSouth was invoked before being initialized") }
+    var onNorth: () -> Void = { fatalError("ChooseRegionViewModel.onNorth was invoked before being initialized") }
+    var onMiddle: () -> Void = { fatalError("ChooseRegionViewModel.onMiddle was invoked before being initialized") }
+    var onSouth: () -> Void = { fatalError("ChooseRegionViewModel.onSouth was invoked before being initialized") }
     init(onNorth: (() -> Void)?, onMiddle: (() -> Void)?, onSouth: (() -> Void)?) {
         if let onNorth {
             self.onNorth = onNorth

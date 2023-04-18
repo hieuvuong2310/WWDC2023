@@ -19,8 +19,7 @@ enum FoodDestination: Identifiable {
 class FoodViewModel: ObservableObject{
     private var cuisines: [Cuisine]
     @Published private(set) var destination: FoodDestination?
-//    var onCard: (Cuisine) -> Void = { _ in fatalError("AreaViewModel.onContinue was invoked before being initialized") }
-    var onDone: () -> Void = { fatalError("AreaViewModel.onContinue was invoked before being initialized") }
+    var onDone:() -> Void = { fatalError("FoodViewModel.onDone was invoked before being initialized") }
     init(cuisines: [Cuisine], onDone: (() -> Void)?){
         self.cuisines = cuisines
         if let onDone {
