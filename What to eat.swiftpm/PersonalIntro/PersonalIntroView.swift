@@ -18,57 +18,63 @@ struct PersonalIntroView: View {
             .ignoresSafeArea()
             .overlay(
                 VStack {
-//                    Image("Background")
-//                        .resizable()
-//                        .opacity(0.5)
-//                        .aspectRatio(contentMode: .fit)
                     Text("Trong Hieu Vuong")
                         .bold()
                         .font(.largeTitle)
                         .foregroundColor(Color(.titleText))
                     if (viewModel.continueOn) {
-                        Rectangle()
-                            .frame(maxWidth: 430, maxHeight: 600)
-                            .foregroundColor(Color(.white))
-                            .overlay(
-                                VStack{
-                                    Rectangle()
-                                        .frame(width: 350, height: 350)
-                                        .foregroundColor(Color(.white))
-                                        .overlay{
-                                                Image("Me")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .padding(.top, 10)
-                                        }
-                                    Text(introText)
-                                        .font(.body)
-                                        .padding([.leading, .trailing], 10)
-                                    Text("Continue")
-                                        .foregroundColor(Color(.primaryButton))
-                                        .font(.title2)
-                                        .padding([.bottom, .trailing], 20)
-                                        .onTapGesture {
-                                            viewModel.continueTapped()
-                                            introText = viewModel.getIntro()
-                                        }
-                                        .foregroundColor(Color(.primaryAccent))
+                        VStack{
+                            RoundedRectangle(cornerRadius: 50)
+                                .frame(width: 300, height: 300)
+                                .foregroundColor(Color(.primaryAccent))
+                                .overlay{
+                                    Image("Me")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .padding(.top, 10)
+                                        .cornerRadius(50)
                                 }
-                            )
+                            Spacer()
+                                .frame(maxHeight: 30)
+                            Text(introText)
+                                .font(.title2)
+                                .padding([.leading, .trailing], 20)
+                            Spacer()
+                                .frame(maxHeight: 30)
+                            RoundedRectangle(cornerRadius: 30)
+                                .frame(maxWidth: 400, maxHeight: 60)
+                                .foregroundColor(Color(.primaryButton))
+                                .overlay {
+                                    Text("Continue")
+                                        .bold()
+                                        .font(.title)
+                                        .foregroundColor(.white)
+                                }
+                                .onTapGesture {
+                                    viewModel.continueTapped()
+                                    introText = viewModel.getIntro()
+                                }
+                        }
                     }
                     else {
-                        RoundedRectangle(cornerRadius: 30)
-                            .frame(width: 400, height: 60)
-                            .foregroundColor(Color(.primaryButton))
-                            .overlay(
-                                Text("Next")
-                                    .foregroundColor(.white)
-                                    .bold()
-                                    .font(.title)
-                            )
-                            .onTapGesture {
-                                viewModel.moveNext()
-                            }
+                        VStack {
+                            Text("Now, shall we discover together?.....")
+                                .font(.title2)
+                                .bold()
+                                .foregroundColor(Color(.secondaryText))
+                            RoundedRectangle(cornerRadius: 30)
+                                .frame(maxWidth: 400, maxHeight: 60)
+                                .foregroundColor(Color(.primaryButton))
+                                .overlay(
+                                    Text("Next")
+                                        .foregroundColor(.white)
+                                        .bold()
+                                        .font(.title)
+                                )
+                                .onTapGesture {
+                                    viewModel.moveNext()
+                                }
+                        }
                     }
                 }
             )

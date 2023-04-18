@@ -9,8 +9,6 @@ import SwiftUI
 
 struct FoodView: View {
     @ObservedObject private var viewModel: FoodViewModel
-    @State var animate: Bool = false
-        let animation: Animation = Animation.linear(duration: 10.0).repeatForever(autoreverses: false)
     init(viewModel: FoodViewModel) {
         self.viewModel = viewModel
     }

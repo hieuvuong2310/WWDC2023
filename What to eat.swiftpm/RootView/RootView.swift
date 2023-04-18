@@ -16,6 +16,10 @@ struct RootView: View {
             AreaView(viewModel: viewModel)
         case .food(let viewModel):
             FoodView(viewModel: viewModel)
+        case .proceed(let viewModel):
+            ProceedView(viewModel: viewModel)
+        case .end(let viewModel):
+            EndView(viewModel: viewModel)
         }
     }
 }
