@@ -44,20 +44,6 @@ struct AreaView: View {
                                         .aspectRatio(contentMode: .fit)
                                         .padding([.leading, .top], -150)
                                 }
-                                else {
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .foregroundColor(Color(.primaryButton))
-                                        .overlay(
-                                            Text("Go to next page")
-                                                .foregroundColor(.white)
-                                                .bold()
-                                                .font(.title)
-                                        )
-                                        .frame(maxWidth: 400, maxHeight: 100)
-                                        .onTapGesture {
-                                            viewModel.goToCuisinePage()
-                                        }
-                                }
                             }
                         }
                     }
@@ -74,6 +60,20 @@ struct AreaView: View {
                             .onTapGesture {
                                 viewModel.continueTapped()
                                 self.introText = viewModel.getDescription()
+                            }
+                    }
+                    else {
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(Color(.primaryButton))
+                            .overlay(
+                                Text("Go to next page")
+                                    .foregroundColor(.white)
+                                    .bold()
+                                    .font(.title)
+                            )
+                            .frame(maxWidth: 400, maxHeight: 50)
+                            .onTapGesture {
+                                viewModel.goToCuisinePage()
                             }
                     }
                 }
