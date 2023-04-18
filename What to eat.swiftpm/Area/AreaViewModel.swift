@@ -20,7 +20,6 @@ class AreaViewModel: ObservableObject {
     private var region: String
     private var count: Int = 0
     private var nextDes: Bool = true
-    private let flightImage: String = "Flight"
     var onContinue: ([Cuisine]) -> Void = { _ in fatalError("AreaViewModel.onContinue was invoked before being initialized") }
     init(mode: AreaMode, onContinue: (([Cuisine]) -> Void)?){
         self.mode = mode
@@ -40,9 +39,6 @@ class AreaViewModel: ObservableObject {
         }
         cuisines = content.cuisines
     }
-    func getFlightImage() -> String {
-        return self.flightImage
-    }
     func getImages() -> [Places] {
         content.animation
     }
@@ -54,6 +50,9 @@ class AreaViewModel: ObservableObject {
     }
     func continueTapped() {
         count+=1
+    }
+    func getPlaceDescription() -> String {
+        content.animation[0].placeDescription
     }
     func getDescription() -> String {
         var des: String

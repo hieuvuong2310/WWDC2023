@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  PersonalIntroView.swift
 //  
 //
 //  Created by Hieu Vuong on 2023-04-17.
@@ -37,8 +37,9 @@ struct PersonalIntroView: View {
                             Spacer()
                                 .frame(maxHeight: 30)
                             Text(introText)
-                                .font(.title2)
+                                .font(.body)
                                 .padding([.leading, .trailing], 20)
+                                .multilineTextAlignment(.center)
                             Spacer()
                                 .frame(maxHeight: 30)
                             RoundedRectangle(cornerRadius: 30)

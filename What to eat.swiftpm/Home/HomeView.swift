@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  HomeView.swift
 //  
 //
 //  Created by Hieu Vuong on 2023-03-31.
@@ -35,16 +35,6 @@ struct HomeView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         )
-//                    Button("Start the journey"){
-//                        viewModel.onStartClicked()
-//                    }
-//                    .foregroundColor(.white)
-//                    .font(.title)
-//                    .buttonStyle(.bordered)
-//                    .frame(maxWidth: 400, maxHeight: 60)
-//                    .background(Color(.primaryButton))
-//                    .cornerRadius(14)
-//                    .padding(.bottom, 50)
                     RoundedRectangle(cornerRadius: 30)
                         .frame(maxWidth: 400, maxHeight: 60)
                         .foregroundColor(Color(.primaryButton))
