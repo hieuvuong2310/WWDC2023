@@ -9,6 +9,8 @@ import Foundation
 enum Destination: Identifiable {
     var id: ObjectIdentifier {
         switch self {
+        case .personas(let viewModel):
+            return ObjectIdentifier(viewModel)
         case .home(let viewModel):
             return ObjectIdentifier(viewModel)
         case .intro(let viewModel):
@@ -21,6 +23,7 @@ enum Destination: Identifiable {
             return ObjectIdentifier(viewModel)
         }
     }
+    case personas(PersonalIntroViewModel)
     case home(HomeViewModel)
     case intro(IntroViewModel)
     case region(ChooseRegionViewModel)
@@ -37,12 +40,15 @@ class RootViewModel: ObservableObject {
     }
     
     init() {
-        destination = Self.makeHomeDestination()
+        destination = Self.makePersonalIntroDestination()
         bind()
     }
 }
 
 extension RootViewModel {
+    private static func makePersonalIntroDestination() -> Destination {
+        .personas(PersonalIntroViewModel(onContinue: {}))
+    }
     private static func makeHomeDestination() -> Destination {
         .home(HomeViewModel(onStart: {}))
     }
@@ -61,6 +67,11 @@ extension RootViewModel {
     
     private func bind() {
         switch destination {
+        case .personas(let viewModel):
+            viewModel.onContinue = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeHomeDestination()
+            }
         case .home(let viewModel):
             viewModel.onStart = { [weak self] in
                 guard let self else { return }

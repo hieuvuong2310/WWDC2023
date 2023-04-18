@@ -4,6 +4,8 @@ struct RootView: View {
     @ObservedObject private var viewModel: RootViewModel = RootViewModel()
     var body: some View {
         switch viewModel.destination {
+        case .personas(let viewModel):
+            PersonalIntroView(viewModel: viewModel)
         case .home(let viewModel):
             HomeView(viewModel: viewModel)
         case .intro(let viewModel):
