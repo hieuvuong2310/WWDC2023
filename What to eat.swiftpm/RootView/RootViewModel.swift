@@ -9,6 +9,8 @@ import Foundation
 enum Destination: Identifiable {
     var id: ObjectIdentifier {
         switch self {
+        case .personas(let viewModel):
+            return ObjectIdentifier(viewModel)
         case .home(let viewModel):
             return ObjectIdentifier(viewModel)
         case .intro(let viewModel):
@@ -19,13 +21,20 @@ enum Destination: Identifiable {
             return ObjectIdentifier(viewModel)
         case .food(let viewModel):
             return ObjectIdentifier(viewModel)
+        case .proceed(let viewModel):
+            return ObjectIdentifier(viewModel)
+        case .end(let viewModel):
+            return ObjectIdentifier(viewModel)
         }
     }
+    case personas(PersonalIntroViewModel)
     case home(HomeViewModel)
     case intro(IntroViewModel)
     case region(ChooseRegionViewModel)
     case area(AreaViewModel)
     case food(FoodViewModel)
+    case proceed(ProceedViewModel)
+    case end(EndViewModel)
 }
 @MainActor
 class RootViewModel: ObservableObject {
@@ -37,12 +46,15 @@ class RootViewModel: ObservableObject {
     }
     
     init() {
-        destination = Self.makeHomeDestination()
+        destination = Self.makePersonalIntroDestination()
         bind()
     }
 }
 
 extension RootViewModel {
+    private static func makePersonalIntroDestination() -> Destination {
+        .personas(PersonalIntroViewModel(onContinue: {}))
+    }
     private static func makeHomeDestination() -> Destination {
         .home(HomeViewModel(onStart: {}))
     }
@@ -58,9 +70,20 @@ extension RootViewModel {
     private static func makeFoodDestination(cuisines: [Cuisine], onDone: (() -> Void)? = nil)-> Destination {
         .food(FoodViewModel(cuisines: cuisines, onDone: onDone))
     }
+    private static func makeProceedDestination(onYes: (() -> Void)? = nil, onFinish: (() -> Void)? = nil)-> Destination {
+        .proceed(ProceedViewModel(onYes: {}, onFinish: {}))
+    }
+    private static func makeEndDestination()-> Destination {
+        .end(EndViewModel())
+    }
     
     private func bind() {
         switch destination {
+        case .personas(let viewModel):
+            viewModel.onContinue = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeHomeDestination()
+            }
         case .home(let viewModel):
             viewModel.onStart = { [weak self] in
                 guard let self else { return }
@@ -94,8 +117,19 @@ extension RootViewModel {
         case .food(let viewModel):
             viewModel.onDone = { [weak self] in
                 guard let self else { return }
+                self.destination = Self.makeProceedDestination()
+            }
+        case .proceed(let viewModel):
+            viewModel.onYes = { [weak self] in
+                guard let self else { return }
                 self.destination = Self.makeRegionDestination()
             }
+            viewModel.onFinish = { [weak self] in
+                guard let self else { return }
+                self.destination = Self.makeEndDestination()
+            }
+        case .end(_):
+            break
         }
     }
 }

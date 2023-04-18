@@ -56,18 +56,26 @@ struct IntroView: View {
                             )
                     }
                     else {
-                        RoundedRectangle(cornerRadius: 30)
-                            .frame(width: 400, height: 60)
-                            .foregroundColor(Color(.primaryButton))
-                            .overlay(
-                                Text("Next")
-                                    .foregroundColor(.white)
-                                    .bold()
-                                    .font(.title)
-                            )
-                            .onTapGesture {
-                                viewModel.moveNext()
-                            }
+                        VStack {
+                            Text("Now, let's see what region of Vietnam that you are in....")
+                                .font(.title2)
+                                .bold()
+                                .padding([.leading, .trailing], 10)
+                                .multilineTextAlignment(.center)
+                            Spacer()
+                            RoundedRectangle(cornerRadius: 30)
+                                .frame(maxWidth: 400, maxHeight: 60)
+                                .foregroundColor(Color(.primaryButton))
+                                .overlay(
+                                    Text("Next")
+                                        .foregroundColor(.white)
+                                        .bold()
+                                        .font(.title)
+                                )
+                                .onTapGesture {
+                                    viewModel.moveNext()
+                                }
+                        }
                     }
                 }
             )

@@ -35,16 +35,28 @@ struct HomeView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         )
-                    Button("Start the journey"){
-                        viewModel.onStartClicked()
-                    }
-                    .foregroundColor(.white)
-                    .font(.title)
-                    .buttonStyle(.bordered)
-                    .frame(maxWidth: 343, maxHeight: 56)
-                    .background(Color(.primaryButton))
-                    .cornerRadius(14)
-                    .padding(.bottom, 50)
+//                    Button("Start the journey"){
+//                        viewModel.onStartClicked()
+//                    }
+//                    .foregroundColor(.white)
+//                    .font(.title)
+//                    .buttonStyle(.bordered)
+//                    .frame(maxWidth: 400, maxHeight: 60)
+//                    .background(Color(.primaryButton))
+//                    .cornerRadius(14)
+//                    .padding(.bottom, 50)
+                    RoundedRectangle(cornerRadius: 30)
+                        .frame(maxWidth: 400, maxHeight: 60)
+                        .foregroundColor(Color(.primaryButton))
+                        .overlay(
+                            Text("Start the journey")
+                                .foregroundColor(.white)
+                                .bold()
+                                .font(.title)
+                        )
+                        .onTapGesture {
+                            viewModel.onStartClicked()
+                        }
                 }
             )
         
