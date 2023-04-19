@@ -73,6 +73,7 @@ struct DetailedFoodView: View {
                                             .font(.title)
                                     )
                                     .onTapGesture {
+                                        playSound(sound: "clickButton", type: "wav")
                                         viewModel.onDismissButtonTapped()
                                     }
                             }

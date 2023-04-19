@@ -52,6 +52,7 @@ struct PersonalIntroView: View {
                                         .foregroundColor(.white)
                                 }
                                 .onTapGesture {
+                                    playSound(sound: "clickButton", type: "wav")
                                     viewModel.continueTapped()
                                     introText = viewModel.getIntro()
                                 }
@@ -73,6 +74,7 @@ struct PersonalIntroView: View {
                                         .font(.title)
                                 )
                                 .onTapGesture {
+                                    playSound(sound: "clickButton", type: "wav")
                                     viewModel.moveNext()
                                 }
                         }
@@ -80,6 +82,7 @@ struct PersonalIntroView: View {
                 }
             )
             .onAppear {
+                playInfiniteSound(sound: "background", type: "mp3")
                 introText = viewModel.getIntro()
             }
     }

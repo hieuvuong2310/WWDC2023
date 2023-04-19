@@ -61,6 +61,7 @@ struct AreaView: View {
                             )
                             .frame(maxWidth: 400, maxHeight: 50)
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.continueTapped()
                                 self.introText = viewModel.getDescription()
                             }
@@ -76,12 +77,16 @@ struct AreaView: View {
                             )
                             .frame(maxWidth: 400, maxHeight: 50)
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.goToCuisinePage()
                             }
                         
                     }
                 }
         )
+            .onAppear {
+                playInfiniteSound(sound: viewModel.getRegion(), type: "mp3")
+            }
                     
     }
 }

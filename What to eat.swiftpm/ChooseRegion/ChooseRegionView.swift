@@ -15,6 +15,9 @@ struct ChooseRegionView: View {
     var body: some View {
         Color(.primaryAccent)
             .ignoresSafeArea()
+            .onAppear {
+                playInfiniteSound(sound: "background", type: "mp3")
+            }
             .overlay(
                 ZStack {
                     Image("Background")
@@ -33,6 +36,7 @@ struct ChooseRegionView: View {
                                     .font(.title)
                             )
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.northTapped()
                             }
                         RoundedRectangle(cornerRadius: 20)
@@ -46,6 +50,7 @@ struct ChooseRegionView: View {
                                     .font(.title)
                             )
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.middleTapped()
                             }
                         RoundedRectangle(cornerRadius: 20)
@@ -59,7 +64,7 @@ struct ChooseRegionView: View {
                                     .font(.title)
                             )
                             .onTapGesture {
-                                
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.southTapped()
                             }
                     }

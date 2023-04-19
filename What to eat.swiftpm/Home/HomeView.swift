@@ -22,7 +22,7 @@ struct HomeView: View {
                         .font(.largeTitle)
                         .padding(.top, 50)
                         .foregroundColor(Color(.titleText))
-                    Text("Vietnamese version")
+                    Text("in Vietnam")
                         .bold()
                         .font(.title2)
                         .foregroundColor(Color(.secondaryText))
@@ -45,6 +45,7 @@ struct HomeView: View {
                                 .font(.title)
                         )
                         .onTapGesture {
+                            playSound(sound: "clickButton", type: "wav")
                             viewModel.onStartClicked()
                         }
                 }

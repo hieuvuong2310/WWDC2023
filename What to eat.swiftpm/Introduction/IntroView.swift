@@ -33,7 +33,6 @@ struct IntroView: View {
                                         .foregroundColor(Color(.secondaryAccent))
                                         .overlay(alignment: .topLeading){
                                             HStack{
-                                                
                                                 Image("Avatar")
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fit)
@@ -48,6 +47,7 @@ struct IntroView: View {
                                         .font(.title2)
                                         .padding([.bottom, .trailing], 20)
                                         .onTapGesture {
+                                            playSound(sound: "clickButton", type: "wav")
                                             viewModel.continueTapped()
                                             introText = viewModel.getIntro()
                                         }
@@ -73,6 +73,7 @@ struct IntroView: View {
                                         .font(.title)
                                 )
                                 .onTapGesture {
+                                    playSound(sound: "clickButton", type: "wav")
                                     viewModel.moveNext()
                                 }
                         }

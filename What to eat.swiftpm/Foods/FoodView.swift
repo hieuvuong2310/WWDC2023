@@ -34,6 +34,7 @@ struct FoodView: View {
                             ForEach(viewModel.getListOfCuisine()) { cuisine in
                                 FoodCell(cuisine: cuisine)
                                     .onTapGesture {
+                                        playSound(sound: "clickButton", type: "wav")
                                         viewModel.onFoodCardTaped(cuisine: cuisine)
                                     }
                                 
@@ -51,6 +52,7 @@ struct FoodView: View {
                                     .foregroundColor(.white)
                             )
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.onDoneTapped()
                             }
                         Image("Walking")

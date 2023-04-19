@@ -37,6 +37,7 @@ struct ProceedView: View {
                                     .font(.title)
                             )
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.onYes()
                             }
                         RoundedRectangle(cornerRadius: 30)
@@ -49,11 +50,15 @@ struct ProceedView: View {
                                     .font(.title)
                             )
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.onFinish()
                             }
                     }
                 }
             )
+            .onAppear {
+                playInfiniteSound(sound: "background", type: "mp3")
+            }
                     
     }
 }
