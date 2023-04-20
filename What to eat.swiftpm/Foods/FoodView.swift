@@ -106,6 +106,7 @@ struct FoodCell: View {
                     Text(cuisine.ingredients)
                         .font(.body)
                         .multilineTextAlignment(.center)
+                        .padding([.trailing, .leading], 10)
                 }
             }
             .padding([.leading, .trailing], 20)
