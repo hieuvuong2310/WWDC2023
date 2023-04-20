@@ -69,7 +69,7 @@ struct ChooseRegionView: View {
                             }
                     }
                 }
-        )
+            )
     }
 }
 

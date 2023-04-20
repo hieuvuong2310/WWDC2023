@@ -1,6 +1,6 @@
 //
 //  AreaView.swift
-//  
+//
 //
 //  Created by Hieu Vuong on 2023-04-09.
 //
@@ -23,12 +23,14 @@ struct AreaView: View {
                         .bold()
                         .font(.largeTitle)
                         .foregroundColor(Color(.primaryButton))
+                        .padding(.top, 20)
                     ZStack{
                         ForEach(viewModel.getImages()) { image in
                             VStack{
                                 Text(image.placeDescription)
                                     .font(.body)
                                     .bold()
+                                    .multilineTextAlignment(.center)
                                 Image(image.placeName)
                                     .frame(maxWidth: 230)
                                 Spacer()
@@ -53,13 +55,14 @@ struct AreaView: View {
                     if (viewModel.isContinued()) {
                         RoundedRectangle(cornerRadius: 30)
                             .foregroundColor(Color(.primaryButton))
+                            .padding([.trailing, .leading], 20)
                             .overlay(
                                 Text("Continue")
                                     .foregroundColor(.white)
                                     .bold()
                                     .font(.title)
                             )
-                            .frame(maxWidth: 400, maxHeight: 50)
+                            .frame(width: 400, height: 60)
                             .onTapGesture {
                                 playSound(sound: "clickButton", type: "wav")
                                 viewModel.continueTapped()
@@ -69,30 +72,29 @@ struct AreaView: View {
                     else {
                         RoundedRectangle(cornerRadius: 30)
                             .foregroundColor(Color(.primaryButton))
+                            .padding([.trailing, .leading], 20)
                             .overlay(
                                 Text("Go to next page")
                                     .foregroundColor(.white)
                                     .bold()
                                     .font(.title)
                             )
-                            .frame(maxWidth: 400, maxHeight: 50)
+                            .frame(maxWidth: 400, maxHeight: 60)
                             .onTapGesture {
                                 playSound(sound: "clickButton", type: "wav")
                                 viewModel.goToCuisinePage()
                             }
-                        
                     }
                 }
-        )
+            )
             .onAppear {
                 playInfiniteSound(sound: viewModel.getRegion(), type: "mp3")
-            }
-                    
+            }     
     }
 }
 
 struct AreaView_Previews: PreviewProvider {
     static var previews: some View {
-        AreaView(viewModel: AreaViewModel(mode: .middle, onContinue: {_ in }))
+        AreaView(viewModel: AreaViewModel(mode: .north, onContinue: {_ in }))
     }
 }

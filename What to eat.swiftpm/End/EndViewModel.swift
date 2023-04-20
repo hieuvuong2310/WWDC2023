@@ -10,6 +10,12 @@ import Foundation
 class EndViewModel: ObservableObject {
     private let endImage: String = "Bye"
     private let endTitle: String = "Thank you for your time!"
+    var onRestart: () -> Void = { fatalError("HomeViewModel.onStart was invoked before being initialized") }
+    init(onRestart: (() -> Void)?){
+        if let onRestart {
+            self.onRestart = onRestart
+        }
+    }
     private let endMessage: String = "I hope you enjoy my app!"
     
     func getEndImage() -> String {
@@ -20,5 +26,8 @@ class EndViewModel: ObservableObject {
     }
     func getEndMessage() -> String {
         return endMessage
+    }
+    func onRestartTapped() {
+        onRestart()
     }
 }

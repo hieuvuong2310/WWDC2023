@@ -44,6 +44,7 @@ struct PersonalIntroView: View {
                                 .frame(maxHeight: 30)
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(maxWidth: 400, maxHeight: 60)
+                                .padding([.leading, .trailing], 20)
                                 .foregroundColor(Color(.primaryButton))
                                 .overlay {
                                     Text("Continue")
@@ -67,6 +68,7 @@ struct PersonalIntroView: View {
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(maxWidth: 400, maxHeight: 60)
                                 .foregroundColor(Color(.primaryButton))
+                                .padding([.leading, .trailing], 20)
                                 .overlay(
                                     Text("Next")
                                         .foregroundColor(.white)

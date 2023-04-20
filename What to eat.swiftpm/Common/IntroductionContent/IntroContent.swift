@@ -1,5 +1,5 @@
 //
-//  File.swift
+//
 //  
 //
 //  Created by Hieu Vuong on 2023-03-31.
@@ -65,6 +65,4 @@ final class CuisineFindImpl: CuisineFind {
     func getSouth() -> AreaElements{
         return (content.south)
     }
-    
-    
 }

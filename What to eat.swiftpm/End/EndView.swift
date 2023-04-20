@@ -26,10 +26,30 @@ struct EndView: View {
                             .font(.largeTitle)
                             .foregroundColor(Color(.titleText))
                             .bold()
+                            .multilineTextAlignment(.center)
+                            .padding([.top, .leading, .trailing], 20)
                         Text("I hope you enjoy my app!")
                             .font(.title2)
+                            .padding([.leading, .trailing], 20)
                         Spacer()
                         Image("Bye")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                        RoundedRectangle(cornerRadius: 30)
+                            .frame(maxWidth: 400, maxHeight: 60)
+                            .foregroundColor(Color(.primaryButton))
+                            .padding([.leading, .trailing, .bottom], 20)
+                            .overlay(
+                                Text("Restart")
+                                    .foregroundColor(.white)
+                                    .bold()
+                                    .font(.title)
+                                    .padding(.bottom, 20)
+                            )
+                            .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
+                                viewModel.onRestartTapped()
+                            }
                     }
                 }
             )
@@ -38,6 +58,6 @@ struct EndView: View {
 
 struct EndView_Previews: PreviewProvider {
     static var previews: some View {
-        EndView(viewModel: EndViewModel())
+        EndView(viewModel: EndViewModel(onRestart: {}))
     }
 }
