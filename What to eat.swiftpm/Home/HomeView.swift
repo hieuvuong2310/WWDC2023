@@ -22,7 +22,7 @@ struct HomeView: View {
                         .font(.largeTitle)
                         .padding(.top, 50)
                         .foregroundColor(Color(.titleText))
-                    Text("Vietnamese version")
+                    Text("in Vietnam")
                         .bold()
                         .font(.title2)
                         .foregroundColor(Color(.secondaryText))
@@ -38,18 +38,20 @@ struct HomeView: View {
                     RoundedRectangle(cornerRadius: 30)
                         .frame(maxWidth: 400, maxHeight: 60)
                         .foregroundColor(Color(.primaryButton))
+                        .padding([.trailing, .leading, .bottom], 20)
                         .overlay(
                             Text("Start the journey")
                                 .foregroundColor(.white)
                                 .bold()
                                 .font(.title)
+                                .padding(.bottom, 20)
                         )
                         .onTapGesture {
+                            playSound(sound: "clickButton", type: "wav")
                             viewModel.onStartClicked()
                         }
                 }
             )
-        
     }
 }
 

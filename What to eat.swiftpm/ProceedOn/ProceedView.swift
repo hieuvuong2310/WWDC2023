@@ -30,6 +30,7 @@ struct ProceedView: View {
                         RoundedRectangle(cornerRadius: 30)
                             .frame(maxWidth: 400, maxHeight: 60)
                             .foregroundColor(Color(.primaryButton))
+                            .padding([.trailing, .leading], 20)
                             .overlay(
                                 Text("Yes")
                                     .foregroundColor(.white)
@@ -37,11 +38,13 @@ struct ProceedView: View {
                                     .font(.title)
                             )
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.onYes()
                             }
                         RoundedRectangle(cornerRadius: 30)
                             .frame(maxWidth: 400, maxHeight: 60)
                             .foregroundColor(Color(.primaryButton))
+                            .padding([.trailing, .leading], 20)
                             .overlay(
                                 Text("Finish")
                                     .foregroundColor(.white)
@@ -49,12 +52,12 @@ struct ProceedView: View {
                                     .font(.title)
                             )
                             .onTapGesture {
+                                playSound(sound: "clickButton", type: "wav")
                                 viewModel.onFinish()
                             }
                     }
                 }
-            )
-                    
+            )     
     }
 }
 

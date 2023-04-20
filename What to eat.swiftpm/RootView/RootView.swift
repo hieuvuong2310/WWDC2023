@@ -7,9 +7,9 @@
 import SwiftUI
 
 struct RootView: View {
-    @ObservedObject private var viewModel: RootViewModel = RootViewModel()
+    @ObservedObject private var rootViewModel: RootViewModel = RootViewModel()
     var body: some View {
-        switch viewModel.destination {
+        switch rootViewModel.destination {
         case .personas(let viewModel):
             PersonalIntroView(viewModel: viewModel)
         case .home(let viewModel):

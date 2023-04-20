@@ -33,7 +33,6 @@ struct IntroView: View {
                                         .foregroundColor(Color(.secondaryAccent))
                                         .overlay(alignment: .topLeading){
                                             HStack{
-                                                
                                                 Image("Avatar")
                                                     .resizable()
                                                     .aspectRatio(contentMode: .fit)
@@ -48,6 +47,7 @@ struct IntroView: View {
                                         .font(.title2)
                                         .padding([.bottom, .trailing], 20)
                                         .onTapGesture {
+                                            playSound(sound: "clickButton", type: "wav")
                                             viewModel.continueTapped()
                                             introText = viewModel.getIntro()
                                         }
@@ -60,19 +60,23 @@ struct IntroView: View {
                             Text("Now, let's see what region of Vietnam that you are in....")
                                 .font(.title2)
                                 .bold()
-                                .padding([.leading, .trailing], 10)
+                                .foregroundColor(Color(.titleText))
+                                .padding([.top,.leading, .trailing], 30)
                                 .multilineTextAlignment(.center)
                             Spacer()
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(maxWidth: 400, maxHeight: 60)
                                 .foregroundColor(Color(.primaryButton))
+                                .padding([.leading, .trailing, .bottom], 20)
                                 .overlay(
                                     Text("Next")
                                         .foregroundColor(.white)
                                         .bold()
                                         .font(.title)
+                                        .padding(.bottom, 20)
                                 )
                                 .onTapGesture {
+                                    playSound(sound: "clickButton", type: "wav")
                                     viewModel.moveNext()
                                 }
                         }

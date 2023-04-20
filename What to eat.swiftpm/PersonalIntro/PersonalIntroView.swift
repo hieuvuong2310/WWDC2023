@@ -44,6 +44,7 @@ struct PersonalIntroView: View {
                                 .frame(maxHeight: 30)
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(maxWidth: 400, maxHeight: 60)
+                                .padding([.leading, .trailing], 20)
                                 .foregroundColor(Color(.primaryButton))
                                 .overlay {
                                     Text("Continue")
@@ -52,6 +53,7 @@ struct PersonalIntroView: View {
                                         .foregroundColor(.white)
                                 }
                                 .onTapGesture {
+                                    playSound(sound: "clickButton", type: "wav")
                                     viewModel.continueTapped()
                                     introText = viewModel.getIntro()
                                 }
@@ -66,6 +68,7 @@ struct PersonalIntroView: View {
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(maxWidth: 400, maxHeight: 60)
                                 .foregroundColor(Color(.primaryButton))
+                                .padding([.leading, .trailing], 20)
                                 .overlay(
                                     Text("Next")
                                         .foregroundColor(.white)
@@ -73,6 +76,7 @@ struct PersonalIntroView: View {
                                         .font(.title)
                                 )
                                 .onTapGesture {
+                                    playSound(sound: "clickButton", type: "wav")
                                     viewModel.moveNext()
                                 }
                         }
@@ -80,6 +84,7 @@ struct PersonalIntroView: View {
                 }
             )
             .onAppear {
+                playInfiniteSound(sound: "background", type: "mp3")
                 introText = viewModel.getIntro()
             }
     }

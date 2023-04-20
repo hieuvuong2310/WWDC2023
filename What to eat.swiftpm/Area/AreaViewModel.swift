@@ -1,5 +1,5 @@
 //
-//  File.swift
+//
 //  
 //
 //  Created by Hieu Vuong on 2023-04-09.
@@ -43,7 +43,7 @@ class AreaViewModel: ObservableObject {
         content.animation
     }
     func getRegion() -> String {
-        self.region
+        return region
     }
     func getContent() -> AreaElements {
         return content

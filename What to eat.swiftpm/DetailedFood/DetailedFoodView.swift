@@ -23,7 +23,8 @@ struct DetailedFoodView: View {
                                 .font(.largeTitle)
                                 .bold()
                                 .foregroundColor(Color(.titleText))
-                                .padding(.top, 30)
+                                .multilineTextAlignment(.center)
+                                .padding([.leading, .trailing, .top], 30)
                             RoundedRectangle(cornerRadius: 30)
                                 .frame(width: 400, height: 400)
                                 .foregroundColor(.white)
@@ -65,14 +66,17 @@ struct DetailedFoodView: View {
                                     .frame(height: 30)
                                 RoundedRectangle(cornerRadius: 30)
                                     .frame(width: 350, height: 60)
+                                    .padding(.bottom, 20)
                                     .foregroundColor(Color(.primaryButton))
                                     .overlay(
                                         Text("Done")
                                             .foregroundColor(.white)
                                             .bold()
                                             .font(.title)
+                                            .padding(.bottom, 20)
                                     )
                                     .onTapGesture {
+                                        playSound(sound: "clickButton", type: "wav")
                                         viewModel.onDismissButtonTapped()
                                     }
                             }
