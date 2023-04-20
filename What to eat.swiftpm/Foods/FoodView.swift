@@ -100,6 +100,7 @@ struct FoodCell: View {
                                     .bold()
                                     .font(.largeTitle)
                                     .foregroundColor(Color(.titleText))
+                                    .multilineTextAlignment(.center)
                             }
                         }
                     Text(cuisine.ingredients)
