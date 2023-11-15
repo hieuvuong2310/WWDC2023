@@ -39,3 +39,4 @@ jobs:
         title: Monthly issue metrics report
         token: ${{ secrets.GH_TOKEN }}
         content-filepath: ./issue_metrics.md
+        
