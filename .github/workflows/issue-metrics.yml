@@ -1,8 +1,9 @@
 name: Monthly issue metrics
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '3 2 1 * *'
+  pull_request:
+    workflow_dispatch:
+    schedule:
+      - cron: '3 2 1 * *'
 
 permissions:
   issues: write
@@ -30,7 +31,7 @@ jobs:
       uses: github/issue-metrics@v2
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        SEARCH_QUERY: 'repo:hieuvuong2310/WWDC2023 is:issue created:${{ env.last_month }} -reason:"not planned"'
+        SEARCH_QUERY: 'repo:hieuvuong2310/WWDC2023 is:issue created:${{ env.last_month }}'
 
     - name: Create issue
       uses: peter-evans/create-issue-from-file@v4
@@ -38,3 +39,4 @@ jobs:
         title: Monthly issue metrics report
         token: ${{ secrets.GH_TOKEN }}
         content-filepath: ./issue_metrics.md
+        
