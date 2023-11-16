@@ -18,7 +18,7 @@ jobs:
       shell: bash
       run: |
         # Calculate the first day of the previous month
-        first_day=$(date -d "last month" +%Y-%m-01)
+        first_day=$(date -d "this month" +%Y-%m-01)
 
         # Calculate the last day of the previous month
         last_day=$(date -d "$first_day +1 month -1 day" +%Y-%m-%d)
@@ -38,5 +38,4 @@ jobs:
       with:
         title: Monthly issue metrics report
         token: ${{ secrets.GH_TOKEN }}
-        content-filepath: ./issue_metrics.md
-        
+        content-filepath: ./testing.md
